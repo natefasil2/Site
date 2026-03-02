@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-label="Commercial printing placeholder image">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#214c78"/>
+      <stop offset="100%" stop-color="#0f2438"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#g1)"/>
+  <rect x="120" y="150" width="960" height="340" rx="24" fill="#ecf5ff" opacity="0.16"/>
+  <rect x="190" y="210" width="340" height="200" rx="14" fill="#f7f9fb"/>
+  <rect x="570" y="210" width="430" height="26" rx="8" fill="#8fc5ff"/>
+  <rect x="570" y="252" width="360" height="20" rx="8" fill="#d3e8ff"/>
+  <rect x="570" y="286" width="320" height="20" rx="8" fill="#d3e8ff"/>
+  <text x="570" y="362" fill="#f5fbff" font-size="48" font-family="Arial, sans-serif" font-weight="700">Commercial Printing</text>
+</svg>

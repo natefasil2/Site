@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Eth-Cana Printing Press</title>
+    <link rel="icon" type="image/svg+xml" href="assets/logos/clean_logo_3_1.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav container">
+        <a class="logo" href="index.html">Eth-Cana Printing Press</a>
+        <button
+          class="menu-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          &#9776;
+        </button>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero contact-hero" id="contact-top">
+        <div class="container">
+          <p class="eyebrow">LET'S TALK PRINT</p>
+          <h1>Contact Eth-Cana Printing Press</h1>
+          <p>
+            Share your print requirements and our team will reply with
+            timelines, options, and a quote.
+          </p>
+        </div>
+      </section>
+
+      <section class="contact-section section" id="contact-details">
+        <div class="container contact-grid">
+          <aside class="contact-links" id="contact-links">
+            <h2>Contact Channels</h2>
+            <a href="mailto:ethcanaprinters@yahoo.com" class="contact-link">
+              <span class="icon" aria-hidden="true">&#9993;</span>
+              <span>ethcanaprinters@yahoo.com</span>
+            </a>
+            <a href="tel:+15551234567" class="contact-link">
+              <span class="icon" aria-hidden="true">&#9742;</span>
+              <span>+1 (555) 123-4567</span>
+            </a>
+            <a href="#" class="contact-link">
+              <span class="icon" aria-hidden="true">&#8962;</span>
+              <span>Wolo Sefer, Addis Ababa, Ethiopia</span>
+            </a>
+          </aside>
+
+          <form class="contact-form" action="#" method="post" id="quote-form">
+            <h2>Request a Quote</h2>
+            <label for="name">Full Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Your name"
+              required
+            />
+
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="you@company.com"
+              required
+            />
+
+            <label for="service">Service Needed</label>
+            <select id="service" name="service" required>
+              <option value="">Select a service</option>
+              <option>BC Printing</option>
+              <option>LH Printing</option>
+              <option>Digital ID Printing</option>
+              <option>Paper Sticker Printing</option>
+              <option>Book Printing</option>
+              <option>Magazine Printing</option>
+              <option>Poster Printing</option>
+              <option>Card Printing</option>
+              <option>Flyer Printing</option>
+              <option>Label Printing</option>
+              <option>Voucher Printing</option>
+              <option>Brochure Printing</option>
+              <option>Calendar Printing</option>
+              <option>Agenda Printing</option>
+            </select>
+
+            <label for="message">Project Details</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              placeholder="Tell us what you need printed..."
+              required
+            ></textarea>
+
+            <button type="submit" class="btn">Send Request</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <p class="footer-title">Eth-Cana Printing Press</p>
+          <p>Precision Print. Lasting Impressions.</p>
+        </div>
+        <div class="footer-col">
+          <p class="footer-title">Pages</p>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="footer-title">Contact Sections</p>
+          <div class="footer-links">
+            <a href="#contact-top">Top</a>
+            <a href="#contact-links">Channels</a>
+            <a href="#quote-form">Quote Form</a>
+            <a href="about.html#service-details">Service Details</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

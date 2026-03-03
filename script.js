@@ -11,48 +11,121 @@
 
   const carousel = document.querySelector("[data-carousel]");
   if (carousel) {
+    const wrapper = carousel.querySelector(".carousel-track-wrapper");
     const track = carousel.querySelector(".carousel-track");
     const prevBtn = carousel.querySelector(".carousel-btn.prev");
     const nextBtn = carousel.querySelector(".carousel-btn.next");
-    const cards = Array.from(track.children);
-    let index = 0;
+    const originalCards = Array.from(track.children);
+    let cards = originalCards.slice();
+    let offset = 0;
+    let loopWidth = 0;
+    let animationFrame = null;
+    let lastTime = 0;
+    let activeCard = null;
+    const speed = 48;
 
-    function itemsPerView() {
-      if (window.innerWidth < 700) {
-        return 1;
+    function hideArrows() {
+      [prevBtn, nextBtn].forEach(function (button) {
+        if (!button) {
+          return;
+        }
+        button.hidden = true;
+        button.setAttribute("aria-hidden", "true");
+        button.tabIndex = -1;
+      });
+    }
+
+    function getTrackGap() {
+      const styles = window.getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap || "0");
+      return Number.isNaN(gap) ? 0 : gap;
+    }
+
+    function measure() {
+      if (!cards.length) {
+        loopWidth = 0;
+        return;
       }
-      if (window.innerWidth < 1080) {
-        return 2;
+      const cardWidth = cards[0].getBoundingClientRect().width;
+      loopWidth = (cardWidth + getTrackGap()) * originalCards.length;
+    }
+
+    function updateCenterCard() {
+      if (!wrapper || !cards.length) {
+        return;
       }
-      return 3;
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
+      let closest = null;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      cards.forEach(function (card) {
+        const rect = card.getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+        const distance = Math.abs(center - wrapperCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closest = card;
+        }
+      });
+
+      if (activeCard && activeCard !== closest) {
+        activeCard.classList.remove("is-center");
+      }
+      if (closest && closest !== activeCard) {
+        closest.classList.add("is-center");
+      }
+      activeCard = closest;
     }
 
-    function updateCarousel() {
-      const cardWidth = cards[0].getBoundingClientRect().width + 16;
-      track.style.transform = "translateX(-" + index * cardWidth + "px)";
+    function render() {
+      track.style.transform = "translateX(-" + offset + "px)";
+      updateCenterCard();
     }
 
-    function clampIndex() {
-      const max = Math.max(0, cards.length - itemsPerView());
-      index = Math.min(index, max);
+    function tick(timestamp) {
+      if (!lastTime) {
+        lastTime = timestamp;
+      }
+      const deltaSeconds = (timestamp - lastTime) / 1000;
+      lastTime = timestamp;
+
+      if (loopWidth > 0) {
+        offset += speed * deltaSeconds;
+        if (offset >= loopWidth) {
+          offset -= loopWidth;
+        }
+        render();
+      }
+
+      animationFrame = window.requestAnimationFrame(tick);
     }
 
-    nextBtn.addEventListener("click", function () {
-      index += 1;
-      clampIndex();
-      updateCarousel();
-    });
+    if (wrapper && track && originalCards.length) {
+      hideArrows();
 
-    prevBtn.addEventListener("click", function () {
-      index -= 1;
-      clampIndex();
-      updateCarousel();
-    });
+      originalCards.forEach(function (card) {
+        track.appendChild(card.cloneNode(true));
+      });
+      cards = Array.from(track.children);
 
-    window.addEventListener("resize", function () {
-      clampIndex();
-      updateCarousel();
-    });
+      measure();
+      render();
+      animationFrame = window.requestAnimationFrame(tick);
+
+      window.addEventListener("resize", function () {
+        const ratio = loopWidth > 0 ? offset / loopWidth : 0;
+        measure();
+        offset = ratio * loopWidth;
+        render();
+      });
+
+      window.addEventListener("beforeunload", function () {
+        if (animationFrame) {
+          window.cancelAnimationFrame(animationFrame);
+        }
+      });
+    }
   }
 
   const testimonialRoot = document.querySelector("[data-testimonials]");
@@ -134,18 +207,24 @@
         formData.append("email", email);
         formData.append("service", service);
         formData.append("message", message);
-        formData.append("_subject", "Print Request: " + (service || "General Inquiry"));
+        formData.append(
+          "_subject",
+          "Print Request: " + (service || "General Inquiry"),
+        );
         formData.append("_replyto", email);
         formData.append("_captcha", "false");
         formData.append("_template", "table");
 
-        const response = await fetch("https://formsubmit.co/ajax/natefasil4@gmail.com", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
+        const response = await fetch(
+          "https://formsubmit.co/ajax/natefasil4@gmail.com",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+            },
+            body: formData,
           },
-          body: formData,
-        });
+        );
 
         if (!response.ok) {
           throw new Error("Request failed with status " + response.status);

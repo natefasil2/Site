@@ -338,20 +338,19 @@ h2 {
 }
 
 .carousel {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 1rem;
-  align-items: center;
+  position: relative;
 }
 
 .carousel-track-wrapper {
   overflow: hidden;
+  width: 100%;
 }
 
 .carousel-track {
   display: flex;
   gap: 1rem;
-  transition: transform 0.45s ease;
+  transition: none;
+  will-change: transform;
 }
 
 .client-card {
@@ -385,14 +384,16 @@ h2 {
   height: 100%;
   object-fit: contain;
   transform: scale(1);
-  filter: grayscale(100%);
-  opacity: 0.94;
-  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  filter: none;
+  opacity: 1;
+  transition: transform 0.25s ease;
 }
 
 .client-card:hover .client-logo {
-  filter: grayscale(0%);
-  opacity: 1;
+  transform: scale(1.06);
+}
+
+.client-card.is-center .client-logo {
   transform: scale(1.06);
 }
 
@@ -406,6 +407,10 @@ h2 {
   transform: translateX(15%) scale(1.04);
 }
 
+.client-card.is-center .logo-cip {
+  transform: translateX(15%) scale(1.04);
+}
+
 .logo-crda {
   transform: translateX(14%) scale(1);
   object-position: center center;
@@ -416,6 +421,10 @@ h2 {
   transform: translateX(15%) scale(1.04);
 }
 
+.client-card.is-center .logo-crda {
+  transform: translateX(15%) scale(1.04);
+}
+
 .logo-operation-smile {
   transform: translate(9%, 6%) scale(1.24);
   object-position: center center;
@@ -423,6 +432,10 @@ h2 {
 }
 
 .client-card:hover .logo-operation-smile {
+  transform: translate(10%, 7%) scale(1.3);
+}
+
+.client-card.is-center .logo-operation-smile {
   transform: translate(10%, 7%) scale(1.3);
 }
 
@@ -440,6 +453,10 @@ h2 {
   padding: 0.55rem 0.75rem;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.carousel .carousel-btn {
+  display: none;
 }
 
 .arrow-btn {

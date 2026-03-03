@@ -82,9 +82,20 @@ h2 {
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-family: "Bebas Neue", sans-serif;
-  font-size: 1.8rem;
+  font-size: clamp(1.35rem, 2.6vw, 1.8rem);
   letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .nav-links {
@@ -448,6 +459,8 @@ h2 {
   border-radius: var(--radius);
   padding: 1.6rem;
   box-shadow: var(--shadow);
+  max-width: 860px;
+  margin-inline: auto;
 }
 
 .testimonial-track {
@@ -716,6 +729,16 @@ h2 {
 }
 
 @media (max-width: 700px) {
+  .logo {
+    font-size: 1.35rem;
+    letter-spacing: 0.04em;
+  }
+
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+  }
+
   .menu-toggle {
     display: block;
   }
